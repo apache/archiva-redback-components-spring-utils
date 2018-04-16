@@ -30,6 +30,8 @@ def deploySettings = 'DefaultMavenSettingsProvider.1331204114925'
 
 node(labels) {
 
+    cleanWs()
+
     stage ('Clone Sources') {
         git url: 'https://gitbox.apache.org/repos/asf/archiva-redback-components-spring-utils.git'
     }
@@ -37,7 +39,8 @@ node(labels) {
     stage ('Build') {
         withMaven(
                 maven: buildMvn,
-                jdk: buildJdk
+                jdk: buildJdk,
+                mavenSettingsConfig: deploySettings
         ) {
             // Run the maven build
             sh "mvn clean install -B -U -e -fae -Dmaven.compiler.fork=false"
