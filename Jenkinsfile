@@ -17,4 +17,4 @@
  * under the License.
  */
 
-asfStandardBuild cmdline:"clean deploy"
+asfStandardBuild cmdline:env.BRANCH_NAME == 'master'?"clean deploy":"clean install"
